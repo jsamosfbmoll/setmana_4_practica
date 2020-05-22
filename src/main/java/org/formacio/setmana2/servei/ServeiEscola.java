@@ -7,6 +7,7 @@ import org.formacio.setmana2.repositori.EdatIncorrecteException;
 import org.formacio.setmana2.repositori.RepositoriEscola;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ServeiEscola {
@@ -19,6 +20,8 @@ public class ServeiEscola {
 	 * Per tant, els hem de carregar, no crear de nou.
 	 * L'excepcio EdatIncorrecteException no s'ha de capturar. S'ha de propagar cap el client
 	 */
+	
+	@Transactional(rollbackFor = EdatIncorrecteException.class)
 	public List<Matricula> apunta (String curs, List<String> alumnes) throws EdatIncorrecteException {
 		List<Matricula> matriculas = new ArrayList<Matricula>();
 		for (int i = 0; i < alumnes.size(); i++) {
