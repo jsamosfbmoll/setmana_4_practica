@@ -33,9 +33,8 @@ public class RepositoriEscola {
 	@Transactional
 	public Matricula apunta (String alumne, String curs) throws EdatIncorrecteException {
 		Alumne alumneCarregat = this.carregaAlumne(alumne);
-		if (alumneCarregat.getEdat() < 18) throw new EdatIncorrecteException();
-		
 		Curs cursCarregat = this.carregaCurs(curs);
+		if (alumneCarregat.getEdat() < cursCarregat.getEdatMinima()) throw new EdatIncorrecteException();
 		
 		Matricula matricula = new Matricula();
 		matricula.setAlumne(alumneCarregat);
