@@ -1,8 +1,12 @@
 package org.formacio.setmana2.repositori;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.formacio.setmana2.domini.Curs;
 import org.formacio.setmana2.domini.Matricula;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Modifica aquesta classe per tal que sigui un component Spring que realitza les 
@@ -12,9 +16,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RepositoriEscola {
 
+	@PersistenceContext
+	private EntityManager em;
 	
+	@Transactional(readOnly = true)
 	public Curs carregaCurs(String nom) {
-		return null;
+		return em.find(Curs.class, nom);
 	}
 	
 	
